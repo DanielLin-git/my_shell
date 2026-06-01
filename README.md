@@ -10,6 +10,7 @@
 ├── .gitignore
 ├── CMakeLists.txt          # CMake configuration file
 └── README.md               # Project documentation
+```
 
 Prerequisites
 Before building the project, ensure you have the following installed on your system:
