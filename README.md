@@ -44,3 +44,53 @@ make
 ```
 
 (Note: If you want to run my_shell_v2, make sure it is added to your CMakeLists.txt via add_executable(my_shell_v2 src/my_shell_v2.c))
+
+- my_shell_v1.c control structer
+```
+   [ Start ]
+       │
+       ▼
+┌──────────────┐
+│  Read Line   │  <─── (Gets raw input via getchar)
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│  Split Line  │  <─── (Tokenizes string into arguments)
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│   Execute    │  <─── (Runs builtin command or forks subpros)
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│   Clean Up   │  <─── (Frees memory allocated for this loop)
+└──────┬───────┘
+       │
+       └─ (Loop continues until 'exit' command returns 0) ──> [ End ]
+```
+- my_shell_v2.c control structer
+```
+         ┌─────────────────── Empty Input / Error ──────────────────┐
+         ▼                                                          │
+┌─────────────────┐          Success         ┌────────────────┐     │
+│  WAITING_INPUT  │─────────────────────────>│   SPLIT_LINE   │     │
+└────────┬────────┘                          └───────┬────────┘     │
+         ▲                                           │              │
+         │                                   Success │              │
+         │                                           ▼              │
+         │                                   ┌────────────────┐     │
+         ├─────────── Execution Done ────────│    EXECUTE     │     │
+         │                                   └───────┬────────┘     │
+         │                                           │              │
+         │                                      If 'exit'           │
+         │                                           ▼              │
+         │                                   ┌────────────────┐     │
+         └─────────── Reset & Clean Up ──────│      EXIT      │<────┘
+                                             └───────┬────────┘
+                                                     │
+                                                     ▼
+                                                  [ End ]
+```
